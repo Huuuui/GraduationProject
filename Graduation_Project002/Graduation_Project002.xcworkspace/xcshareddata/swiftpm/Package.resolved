@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Refresh",
+        "repositoryURL": "https://github.com/wxxsw/Refresh",
+        "state": {
+          "branch": "master",
+          "revision": "e3a1f1f5b9056000981d2a5cfade72b5d7ad8651",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
