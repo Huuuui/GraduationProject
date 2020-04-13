@@ -22,62 +22,57 @@ struct Login: View {
     @Binding var studentshow: Bool
     @State var jieyueshow: Bool = true
     @State var txt = "123"
-    
+    @State var alertshow: Bool = false
+    @State var loginstate: String = ""
     @Binding var userid:String
     var body: some View {
         ZStack {
             Color.white
-            
+            Image("login1")
+            .resizable()
+                .frame(width:screen.width,height:720)
             VStack {
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        self.showLogin.toggle()
-                        //self.caonima.toggle()
-                        
-                    }) {
-                        Image(systemName:"xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                    }
-                        
-                    .padding(.trailing, 20)
-                    .foregroundColor(Color.black)
-                    
-                }
                 Spacer()
                 VStack {
                     HStack {
-                        Text("账号：")
+                       
                         
-                        TextField("",text:$username) .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(width: 200)
+                        TextField("账号",text:$username) .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 230)
                     }
                     .padding(.bottom)
                     HStack {
-                        Text("密码：")
-                        SecureField("",text: $userpass)
+                        
+                        SecureField("密码",text: $userpass)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(width:200)
+                            .frame(width:230)
                     }
                     .padding(.bottom)
                     
                     Button(action: {
                         Api().to_Login(completion: { (gzy) in
-                            if gzy[0].shenfen == "0"{
-                                //self.showLogin.toggle()
-                                self.studentshow = true
-                                self.teachershow = false
-                                self.showLogin.toggle()
-                                self.loginreturn = gzy
-                                self.userid = self.username
-                                
+                            if gzy[0].shenfen == "-10"{
+                                self.loginstate = "账号或密码错误"
+                                self.alertshow.toggle()
                             }
-                            else if gzy[0].shenfen == "1" {
-                                self.studentshow = false
-                                self.teachershow = true
-                                self.showLogin.toggle()
+                            else {
+                                if gzy[0].shenfen == "0"{
+                                    //self.showLogin.toggle()
+                                    self.studentshow = true
+                                    self.teachershow = false
+                                    self.showLogin.toggle()
+                                    self.loginreturn = gzy
+                                    self.userid = self.username//主要用于学生页面，把账号提出去，用于以后的一些API访问带参
+                                    
+                                }
+                                else if gzy[0].shenfen == "1" {
+                                    self.studentshow = false
+                                    self.teachershow = true
+                                    self.showLogin.toggle()
+                                    self.loginreturn = gzy
+                                }
                             }
+                            
                             
                         }, username: self.username, userpass: self.userpass)
                         
@@ -85,11 +80,15 @@ struct Login: View {
                         //                    }
                     })
                     {
-                        Image(systemName : "arrow.right.circle.fill")
+                        Image(systemName : "chevron.right.circle")
                             .resizable()
                             .frame(width:50,height:50)
+                            .foregroundColor(Color.gray)
                     }
-                    .offset(x : 15, y : 15)
+                    .alert(isPresented: self.$alertshow){
+                        Alert(title: Text("提示"), message: Text(self.loginstate))
+                    }
+                    //.offset(x : 15, y : 15)
                     Spacer()
                         .frame(height: 80)
                 }
@@ -97,6 +96,7 @@ struct Login: View {
                 .padding()
                 
                 Spacer()
+                    .frame(height:190)
                 
             }
             

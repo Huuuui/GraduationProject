@@ -14,7 +14,7 @@ struct MenuView: View {
     @Binding var jieyueshow : Bool
     @Binding var menuviewshow : Bool
     @Binding var searchshow : Bool
-    
+    @State var alertshow : Bool = false
     @Binding var xingming: String
     @Binding var touxiang: String
     var body: some View {
@@ -37,11 +37,16 @@ struct MenuView: View {
                 }
                 Spacer()
                     .frame(height:30)
-                MenuRow(title: "Sign out", icon: "arrow.uturn.down")
+                MenuRow(title: "退出登录", icon: "arrow.uturn.down")
                     .onTapGesture {
+                        self.alertshow.toggle()
+                }
+                .alert(isPresented: self.$alertshow){
+                    Alert(title: Text("提示"), message: Text("确定退出吗？"), primaryButton: .default(Text("确定"), action: {
                         self.menuviewshow.toggle()
                         self.showlogin.toggle()
                         self.studentshow = false
+                    }), secondaryButton: .cancel(Text("取消"), action: {}))
                 }
                 
             }

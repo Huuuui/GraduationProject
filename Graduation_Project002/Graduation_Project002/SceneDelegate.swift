@@ -21,7 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         //let contentView = Login(showLogin: false)//.constant(false)
+        //let contentView = Teacher_Book_zeng(bookname: "", bookisbn: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")
+        //let contentView = TeacherManagement()
         let contentView = Home()
+        //let contentView = Teacher_Book_gai(isbn: "",bookname: "", bookisbn: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")
         //let contentView = MenuView(showlogin: .constant(false), studentshow: .constant(false), jieyueshow: .constant(false), menuviewshow: .constant(false), searchshow: .constant(false))
         //let contentView = Teacher_zeng(teacherbookisbn: "test", teacherbookname: "test", teacherbookauthor: "test", teacherbooktext: "test", teacherbookimg: "test", teacherbookscore: "test")
         // Use a UIHostingController as window root view controller.

@@ -17,6 +17,7 @@ struct SearchBook: View {
     @State var searchresult:[booklist] = []
     @Binding var searchshow: Bool
     @Binding var menuvieshow: Bool
+    @State var alertshow: Bool = false
     var body: some View {
         
         NavigationView  {
@@ -30,12 +31,23 @@ struct SearchBook: View {
                     Spacer()
                     Button(action: {
                         Api().get_searchlist(completion: { (item) in
-                            self.searchresult = item
+                            if item[0].bookisbn == "-1" {
+                                self.alertshow.toggle()
+                                self.searchresult = []
+                            }
+                            else {
+                                self.searchresult = item
+                            }
+                            
                         }, str: self.searchstr)
                     }) {
                         Text("Search")
                             .foregroundColor(Color.white)
                     }
+                    
+                    .alert(isPresented: self.$alertshow) {
+                            Alert(title: Text("查询结果"), message: Text("查无此书"))
+                        }
                     .frame(width:90, height:35)
                     .background(Color.blue)
                     .cornerRadius(30)

@@ -40,7 +40,7 @@ struct Home: View {
         
         
         ZStack {
-            if self.loginreturn.count == 1 {
+            if self.loginreturn.count == 1 && self.studenshow {
                 Color("background2")
                 ScrollView {
                     VStack {
@@ -82,8 +82,8 @@ struct Home: View {
                     .offset(x:self.allbooklistshow ? 0 : 700)
                     .animation(.spring(response: 0.8, dampingFraction: 1, blendDuration: 0))
             }
-            if self.teachershow {
-                TeacherManagement()
+            if self.loginreturn.count == 1 && self.teachershow {
+                TeacherManagement( xingming:self.$loginreturn[0].userxingming,touxiang: self.$loginreturn[0].usertouxiang, showlogin: self.$showlogin,teachershow:self.$teachershow )
                     .offset(x: self.showlogin ? 0 : 700)
                     .animation(.default)
             }
