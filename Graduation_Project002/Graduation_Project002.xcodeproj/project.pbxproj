@@ -23,6 +23,7 @@
 		7C2514A624339FDC00503C37 /* CloudDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2514A324339FDC00503C37 /* CloudDB.swift */; };
 		7C2514A82433A0DB00503C37 /* SQLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2514A72433A0DB00503C37 /* SQLData.swift */; };
 		7C2514AA2433A10400503C37 /* SQLbookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2514A92433A10400503C37 /* SQLbookData.swift */; };
+		7C2B233E2444568900F29D63 /* Teacher_Jieyue_lishi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B233D2444568900F29D63 /* Teacher_Jieyue_lishi.swift */; };
 		7C3C57E8243D762A00232A33 /* Teacher_Book_shan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C57E7243D762A00232A33 /* Teacher_Book_shan.swift */; };
 		7C3C57EA243D764B00232A33 /* Teacher_Book_gai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C57E9243D764B00232A33 /* Teacher_Book_gai.swift */; };
 		7C3C57EC243DA04000232A33 /* Teacher_Book_cha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C57EB243DA04000232A33 /* Teacher_Book_cha.swift */; };
@@ -91,6 +92,7 @@
 		7C2514A324339FDC00503C37 /* CloudDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDB.swift; sourceTree = "<group>"; };
 		7C2514A72433A0DB00503C37 /* SQLData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLData.swift; sourceTree = "<group>"; };
 		7C2514A92433A10400503C37 /* SQLbookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLbookData.swift; sourceTree = "<group>"; };
+		7C2B233D2444568900F29D63 /* Teacher_Jieyue_lishi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Jieyue_lishi.swift; sourceTree = "<group>"; };
 		7C3C57E7243D762A00232A33 /* Teacher_Book_shan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Book_shan.swift; sourceTree = "<group>"; };
 		7C3C57E9243D764B00232A33 /* Teacher_Book_gai.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Book_gai.swift; sourceTree = "<group>"; };
 		7C3C57EB243DA04000232A33 /* Teacher_Book_cha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Book_cha.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				7C3C57ED243DA3A900232A33 /* Teacher_Student_zeng.swift */,
 				7C3C57EF243DA68F00232A33 /* Teacher_Student_shan.swift */,
 				7C3C57F1243DA72500232A33 /* Teacher_Student_cha.swift */,
+				7C2B233D2444568900F29D63 /* Teacher_Jieyue_lishi.swift */,
 				7C9ADAF0241D48FB00C22BBA /* DataStore.swift */,
 				7CA55A27241677C0006F10CB /* StarStore.swift */,
 				7CA55A0D24162435006F10CB /* StarList.swift */,
@@ -410,6 +413,7 @@
 				7C2514A424339FDC00503C37 /* SQLTable.swift in Sources */,
 				7C2514A024339FBB00503C37 /* SQLiteDB.swift in Sources */,
 				7CA55A28241677C0006F10CB /* StarStore.swift in Sources */,
+				7C2B233E2444568900F29D63 /* Teacher_Jieyue_lishi.swift in Sources */,
 				7C9ADAED241CF66600C22BBA /* ApiData.swift in Sources */,
 				7C00E8F0240FEFE8004994DD /* BlurView.swift in Sources */,
 				7C8530E0243A133300D41771 /* DataListTest.swift in Sources */,

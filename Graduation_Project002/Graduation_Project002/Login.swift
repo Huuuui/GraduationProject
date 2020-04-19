@@ -36,9 +36,12 @@ struct Login: View {
                 VStack {
                     HStack {
                        
-                        
-                        TextField("账号",text:$username) .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(width: 230)
+                        SATextField(tag: 0, text:userid,placeholder: "账号", changeHandler: { (newstr) in
+                            self.userid = newstr
+                        })
+                        .frame(width: 230)
+//                        TextField("账号",text:$username) .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
                     }
                     .padding(.bottom)
                     HStack {
@@ -62,7 +65,8 @@ struct Login: View {
                                     self.teachershow = false
                                     self.showLogin.toggle()
                                     self.loginreturn = gzy
-                                    self.userid = self.username//主要用于学生页面，把账号提出去，用于以后的一些API访问带参
+                                    //self.userid = self.username//主要用于学生页面，把账号提出去，用于以后的一些API访问带参
+                                    Api().JieyueJiance(username:self.userid)
                                     
                                 }
                                 else if gzy[0].shenfen == "1" {
@@ -74,7 +78,7 @@ struct Login: View {
                             }
                             
                             
-                        }, username: self.username, userpass: self.userpass)
+                        }, username: self.userid, userpass: self.userpass)
                         
                         
                         //                    }

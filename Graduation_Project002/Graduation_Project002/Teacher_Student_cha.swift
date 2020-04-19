@@ -97,7 +97,7 @@ struct Teacher_Student_cha: View {
                         .frame(width:30)
                     VStack(alignment:.leading ,spacing:18) {
                         HStack {
-                            Text("账号：")
+                            Text("学号：")
                             Text(self.userok  ? self.user[0].username : "")
                             
                         }
@@ -118,8 +118,6 @@ struct Teacher_Student_cha: View {
                             Text("已超期 | 已归还： ")
                             Text(self.chaoqinum.count == 1 && self.guihuannum.count == 1 ? "\(self.chaoqinum[0].num) | \(self.guihuannum[0].num)" : " | ")
                         }
-                        
-                        
                     }
                 }
                 Spacer()
@@ -152,7 +150,6 @@ struct Teacher_Student_cha: View {
                                             .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                                     }
                                 }
-                                
                             }
                         }
                         Section(header: Text("超期未归还")) {

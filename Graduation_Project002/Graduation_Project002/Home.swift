@@ -36,6 +36,7 @@ struct Home: View {
     @State var studenshow: Bool = false
     @State var teachershow: Bool = false
     
+    
     var body: some View {
         
         
@@ -172,7 +173,6 @@ struct Booklist_gdwx: View {
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
     
-    
     @State var bookindex = 0
     var body: some View {
         return
@@ -264,6 +264,7 @@ struct Booklist_js: View {
     
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
+    
     var body: some View {
         return
             VStack {
@@ -413,7 +414,7 @@ struct Booklist_rwkp: View {
                                              bookclass: bookdata_rwkp[self.bookindex].bookclass,
                                              booktxt: bookdata_rwkp[self.bookindex].booktext,
                                              bookfen: bookdata_rwkp[self.bookindex].bookscore,
-                                             bookisbn:bookdata_gdwx[self.bookindex].bookisbn)
+                                             bookisbn:bookdata_rwkp[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                 }

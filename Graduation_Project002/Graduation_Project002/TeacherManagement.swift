@@ -21,9 +21,10 @@ struct TeacherManagement: View {
     var body: some View {
         NavigationView {
             VStack{
+                
                 HStack{// 后台封面
                     WebImage(url: URL(string: self.touxiang))
-                    //WebImage(url: URL(string: "asdw捱三顶五群多"))
+                        //WebImage(url: URL(string: "asdw捱三顶五群多"))
                         .resizable()
                         .frame(width:120, height:170)
                         .cornerRadius(5)
@@ -68,46 +69,47 @@ struct TeacherManagement: View {
                 Divider()
                 List {
                     Section(header:Text("图文管理")) {
-                        VStack{
-                            NavigationLink(destination: Teacher_Book_zeng()) {
-                                
-                                Text("增加书籍") //这个地方如果是按钮就会造成没有办法跳转页面，NavigationLink其实也是一个View可以用各种属性进行修饰
-                            }
-                            NavigationLink(destination: Teacher_Book_shan(isbn:"")) {
-                                Text("删除书籍")
-                            }
+                        NavigationLink(destination: Teacher_Book_zeng()) {
                             
-                            NavigationLink(destination: Teacher_Book_gai(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "", newbookclass: "")) {
-                                Text("改书籍")
-                            }
-                            
-                            NavigationLink(destination: Teacher_Book_cha(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")) {
-                                 Text("查询书籍")
-                            }
+                            Text("      增加书籍") //这个地方如果是按钮就会造成没有办法跳转页面，NavigationLink其实也是一个View可以用各种属性进行修饰
+                        }
+                        NavigationLink(destination: Teacher_Book_shan(isbn:"")) {
+                            Text("      删除书籍")
+                        }
+                        
+                        NavigationLink(destination: Teacher_Book_gai(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "", newbookclass: "")) {
+                            Text("      修改书籍")
+                        }
+                        
+                        NavigationLink(destination: Teacher_Book_cha(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")) {
+                            Text("      查询书籍")
                         }
                     }
                     Section(header:Text("学生管理")){
-                        VStack{
-                            NavigationLink(destination: Teacher_Student_zeng(userid:"",userpass: "",username: "", userimg: "")) {
-                                Text("增加学生")
-                            }
-                            NavigationLink(destination: Teacher_Student_shan(userid: "")) {
-                                Text("删除学生")
-                            }
-                            NavigationLink(destination: Teacher_Student_cha(userid:"")) {
-                                 Text("查询学生")
-                            }
+                        NavigationLink(destination: Teacher_Student_zeng(userid:"",userpass: "",username: "", userimg: "")) {
+                            Text("      增加学生")
+                        }
+                        NavigationLink(destination: Teacher_Student_shan(userid: "")) {
+                            Text("      删除学生")
+                        }
+                        NavigationLink(destination: Teacher_Student_cha(userid:"")) {
+                            Text("      查询学生")
+                        }
+                    }
+                    Section(header:Text("借阅管理")){
+                        NavigationLink(destination: Teacher_Jieyue_lishi(textisbn: "",textname: "",textauthor: "")) {
+                            Text("      学生借阅管理")
                         }
                     }
                 }
-    
-                                
+                
+                
             }
             .navigationBarTitle(Text("系统后台"))
-                
-                //.navigationViewStyle(.)
-                //.navigationBarHidden(true)
-                //.padding(.top,50)
+            
+            //.navigationViewStyle(.)
+            //.navigationBarHidden(true)
+            //.padding(.top,150)
         }
         
     }

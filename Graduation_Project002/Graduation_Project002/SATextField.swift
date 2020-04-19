@@ -33,7 +33,37 @@ class WrappableTextField: UITextField, UITextFieldDelegate {
         onCommitHandler?()
     }
 }
-
+struct SATextField1: UIViewRepresentable {
+    private let tmpView = WrappableTextField()
+    
+    var tag:Int = 0
+    var text:String?
+    var placeholder:String?
+    var textColor: Color?
+    var changeHandler:((String)->Void)?
+    var onCommitHandler:(()->Void)?
+    
+    func makeUIView(context: UIViewRepresentableContext<SATextField1>) -> WrappableTextField {
+        tmpView.tag = tag
+        tmpView.delegate = tmpView
+        tmpView.font = UIFont.systemFont(ofSize: 18)
+        tmpView.text = text
+        tmpView.placeholder = placeholder
+        tmpView.onCommitHandler = onCommitHandler
+        tmpView.textFieldChangedHandler = changeHandler
+        tmpView.borderStyle = UITextField.BorderStyle.roundedRect
+        tmpView.textAlignment = .center
+        tmpView.clearButtonMode=UITextField.ViewMode.whileEditing
+        
+        return tmpView
+    }
+    
+    func updateUIView(_ uiView: WrappableTextField, context: UIViewRepresentableContext<SATextField1>) {
+        
+        uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    }
+}
 struct SATextField: UIViewRepresentable {
     private let tmpView = WrappableTextField()
     

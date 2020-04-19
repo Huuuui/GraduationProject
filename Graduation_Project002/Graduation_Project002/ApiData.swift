@@ -40,6 +40,7 @@ struct jieyuenum:Codable , Identifiable {
 }
 struct loginreturn:Codable, Identifiable {
     let id = UUID()
+    //var username: String
     var shenfen: String = "-1"
     var userxingming: String
     var usertouxiang: String
@@ -70,7 +71,51 @@ struct username: Codable,Identifiable {
     let id = UUID()
     var userxingming:String
 }
+struct managementjieyue:Codable, Identifiable {
+    let id = UUID()
+    var user: String
+    var bookisbn: String
+    var bookname: String
+    var bookimg: String
+    var bookauthor: String
+    var state: String
+}
+struct managementjieyueuser:Codable, Identifiable {
+    let id = UUID()
+    var username: String
+    var userxingming: String
+}
 class Api {
+    //获取借阅表内所有用户的信息
+    func phpTeacherJieyueuser(completion: @escaping ([managementjieyueuser]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
+        let url0 = "http://m300239h20.zicp.vip/phpTeacherJieyueUser.php".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
+        guard let url = URL(string: url0 ?? "") else{
+            print("还是失败了 日")
+            return }
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let stategai = try! JSONDecoder().decode([managementjieyueuser].self, from: data!)
+            DispatchQueue.main.async {
+                completion(stategai)
+            }
+            print(url)
+        }
+        .resume()
+    }
+    //获取借阅表内所有的信息
+    func phpTeacherJieyueLishi(completion: @escaping ([managementjieyue]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
+        let url0 = "http://m300239h20.zicp.vip/phpTeacherJieyueLishi.php".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
+        guard let url = URL(string: url0 ?? "") else{
+            print("还是失败了 日")
+            return }
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let stategai = try! JSONDecoder().decode([managementjieyue].self, from: data!)
+            DispatchQueue.main.async {
+                completion(stategai)
+            }
+            print(url)
+        }
+        .resume()
+    }
     //获取当前书都被谁借过
     func phpTeacherBookchalishi(bookisbn:String,completion: @escaping ([username]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
         let url0 = "http://m300239h20.zicp.vip/phpTeacherBookchalishi.php?isbn=\(bookisbn)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
@@ -297,7 +342,17 @@ class Api {
             //DispatchQueue.main.async {
                 completion(loginstate)
             //}
+            print(url)
             print(loginstate)
+        }
+        .resume()
+    }
+    func JieyueJiance(username: String) {
+        
+        guard let url = URL(string: "http://m300239h20.zicp.vip/phpJieyueJiance.php?userid=" + username) else{return}
+        
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+           
         }
         .resume()
     }
@@ -315,7 +370,24 @@ class Api {
         }
         .resume()
     }
-    
+    //借阅管理里的搜索书籍
+    func phpTeacherJieyueSearch(completion: @escaping ([booklist]) -> () ,bookisbn:String,bookname:String,bookauthor:String) {
+        
+        let url0 = "http://m300239h20.zicp.vip/phpTeacherJieyueSearch.php?bookisbn=\(bookisbn)&bookname=\(bookname)&bookauthor=\(bookauthor)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
+        guard let url = URL(string: url0 ?? "") else{  return }
+        
+        print(url)
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            
+            let sousuolist = try! JSONDecoder().decode([booklist].self, from: data!)
+            DispatchQueue.main.async {
+                
+                completion(sousuolist)
+            }
+            //print(sousuolist)
+        }
+        .resume()
+    }
     func get_searchlist(completion: @escaping ([booklist]) -> () ,str: String) {
         
         let url0 = "http://m300239h20.zicp.vip/phpsousuo.php?search=\(str)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码

@@ -38,7 +38,7 @@ struct Teacher_Book_zeng: View {
                 }
                 HStack {
                     Text("ISBN:  ")
-                    SATextField(tag: 0, text:bookisbn,placeholder: "ISBN号,必填", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:bookisbn,placeholder: "ISBN号", changeHandler: { (newstr) in
                         self.bookisbn = newstr
                     })
                 }
