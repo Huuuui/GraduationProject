@@ -73,12 +73,8 @@ struct username: Codable,Identifiable {
 }
 struct managementjieyue:Codable, Identifiable {
     let id = UUID()
-    var user: String
-    var bookisbn: String
-    var bookname: String
-    var bookimg: String
-    var bookauthor: String
-    var state: String
+    var username: String
+    var userxingming: String
 }
 struct managementjieyueuser:Codable, Identifiable {
     let id = UUID()
@@ -102,8 +98,9 @@ class Api {
         .resume()
     }
     //获取借阅表内所有的信息
-    func phpTeacherJieyueLishi(completion: @escaping ([managementjieyue]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
-        let url0 = "http://m300239h20.zicp.vip/phpTeacherJieyueLishi.php".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
+    //4.19  Api功能发生变化，现在应该是返回借阅这本书的人的学号、姓名
+    func phpTeacherJieyueLishi(completion: @escaping ([managementjieyue]) -> () ,bookisbn:String,state:String) {//completion: @escaping ([loginreturn]) -> () ,
+        let url0 = "http://m300239h20.zicp.vip/phpTeacherJieyueLishi.php?bookisbn=\(bookisbn)&state=\(state)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
         guard let url = URL(string: url0 ?? "") else{
             print("还是失败了 日")
             return }

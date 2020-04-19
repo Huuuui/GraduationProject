@@ -53,7 +53,7 @@ struct SATextField1: UIViewRepresentable {
         tmpView.textFieldChangedHandler = changeHandler
         tmpView.borderStyle = UITextField.BorderStyle.roundedRect
         tmpView.textAlignment = .center
-        tmpView.clearButtonMode=UITextField.ViewMode.whileEditing
+        //tmpView.clearButtonMode=UITextField.ViewMode.whileEditing
         
         return tmpView
     }

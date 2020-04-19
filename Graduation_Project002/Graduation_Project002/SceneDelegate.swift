@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //let contentView = Login(showLogin: false)//.constant(false)
         //let contentView = Teacher_Book_zeng(bookname: "", bookisbn: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")
         //let contentView = TeacherManagement()
+        //let contentView = Teacher_Jieyue_lishi(textisbn: "",textname: "",textauthor: "")
         let contentView = Home()
         //let contentView = Teacher_Book_gai(isbn: "",bookname: "", bookisbn: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")
         //let contentView = MenuView(showlogin: .constant(false), studentshow: .constant(false), jieyueshow: .constant(false), menuviewshow: .constant(false), searchshow: .constant(false))
