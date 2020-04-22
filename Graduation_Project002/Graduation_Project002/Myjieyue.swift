@@ -112,7 +112,7 @@ struct MyJieyue: View {
                                                 Text("ISBN:\(list.bookisbn)")
                                                     .font(.subheadline)
                                                     .foregroundColor(Color.gray)
-                                                Text("你已超期，请立刻归还书籍")
+                                                Text("超期罚款: \(list.fine) 元")
                                                 .font(.subheadline)
                                                 .foregroundColor(Color.red)
                                             }
@@ -147,7 +147,7 @@ struct MyJieyue: View {
                                                 Text("ISBN:\(list.bookisbn)")
                                                     .font(.subheadline)
                                                     .foregroundColor(Color.gray)
-                                                Text("\(list.get_date)借阅 | \(list.back_date)归还")
+                                                Text("\(list.get_date)借阅 | \(list.real_back_date)归还")
                                                 .font(.subheadline)
                                                 .foregroundColor(Color.gray)
                                             }

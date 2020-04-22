@@ -135,9 +135,14 @@ struct ExtractedView: View {
     @State var bookclass:String
     @State var bookscore:String
     @State var nownum:String = ""
+    //用来返回结果这本书的人的学号、姓名
     @State var state0:[managementjieyue] = []
     @State var state1:[managementjieyue] = []
     @State var state2:[managementjieyue] = []
+     //用来返回借过这本书得人的归还时间、借阅时间
+    @State var state00:[managementjieyue2] = []
+    @State var state11:[managementjieyue2] = []
+    @State var state22:[managementjieyue2] = []
     
     @State var warningshow:Bool = false
     @State var alertshow:Bool = false
@@ -172,33 +177,43 @@ struct ExtractedView: View {
                     }
                     List{
                         Section(header:Text("借阅中")){
-                            ForEach(self.state1) { state in
-                                HStack{
-                                    Text("\(state.username),\(state.userxingming)")
-                                }
-                                .onTapGesture {
-                                    self.userid = state.username
-                                    self.warningshow = true
+                            if self.state1.count > 0 && self.state11.count > 0 {
+                                ForEach(0..<self.state1.count,id: \.self) { state in
+                                    
+                                    HStack{
+                                        Text("\(self.state1[state].username),\(self.state1[state].userxingming)    \(self.state11[state].get_date)借阅")//\(self.state11[state].get_date)借阅
+                                    }
+                                    .onTapGesture {
+                                        self.userid = self.state1[state].username
+                                        self.warningshow = true
+                                    }
                                 }
                             }
+                            
                         }
                         Section(header:Text("超期")){
-                            ForEach(self.state2) { state in
-                                HStack{
-                                    Text("\(state.username),\(state.userxingming)")
-                                }
-                                .onTapGesture {
-                                    self.userid = state.username
-                                    self.warningshow = true
+                            if self.state2.count > 0 && self.state22.count > 0 {
+                                ForEach(0..<self.state2.count,id: \.self) { state in
+                                    HStack{
+                                        Text("\(self.state2[state].username),\(self.state2[state].userxingming) 罚金:\(self.state22[state].fine) 元")
+                                    }
+                                    .onTapGesture {
+                                        self.userid = self.state2[state].username
+                                        self.warningshow = true
+                                    }
                                 }
                             }
+                            
                         }
                         Section(header:Text("借阅历史")){
-                            ForEach(self.state0) { state in
-                                HStack{
-                                    Text("\(state.username),\(state.userxingming)")
+                            if self.state0.count > 0 && self.state00.count > 0 {
+                                ForEach(0..<self.state0.count,id: \.self) { state in
+                                    HStack{
+                                        Text("\(self.state0[state].username),\(self.state0[state].userxingming)   \(self.state00[state].get_date)借阅 | \(self.state00[state].real_back_date)归还")
+                                    }
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -253,9 +268,15 @@ struct ExtractedView: View {
                 .animation(.default)
                 
             }
-            
             .alert(isPresented: self.$alertshow){
-                Alert(title: Text("提示"), message: Text(self.state), primaryButton: .default(Text("确定"), action: {
+                Alert(title: Text("提示"), message: Text(self.state), dismissButton: .default(Text("确认"), action: {
+                    self.state0 = []
+                    self.state1 = []
+                    self.state2 = []
+                    
+                    self.state00 = []
+                    self.state11 = []
+                    self.state22 = []
                     Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (nownum) in
                         self.nownum = nownum[0].booknum
                     }
@@ -264,10 +285,21 @@ struct ExtractedView: View {
                             self.state0 = state
                         }
                     }, bookisbn: self.bookisbn, state: "0")
-                    
+                    Api().phpTeacherJieyueLishi2(completion: { (state) in
+                        if state.count > 0 {
+                            self.state00 = state
+                        }
+                    }, bookisbn: self.bookisbn, state: "0")
+
                     Api().phpTeacherJieyueLishi(completion: { (state) in
                         if state.count > 0 {
                             self.state1 = state
+                        }
+                    }, bookisbn: self.bookisbn, state: "1")
+                    
+                    Api().phpTeacherJieyueLishi2(completion: { (state) in
+                        if state.count > 0 {
+                            self.state11 = state
                         }
                     }, bookisbn: self.bookisbn, state: "1")
                     
@@ -276,29 +308,54 @@ struct ExtractedView: View {
                             self.state2 = state
                         }
                     }, bookisbn: self.bookisbn, state: "2")
+                    
+                    Api().phpTeacherJieyueLishi2(completion: { (state) in
+                        if state.count > 0 {
+                            self.state22 = state
+                        }
+                    }, bookisbn: self.bookisbn, state: "2")
                 }))
             }
             .onAppear{
                 Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (nownum) in
                     self.nownum = nownum[0].booknum
                 }
+
                 Api().phpTeacherJieyueLishi(completion: { (state) in
                     if state.count > 0 {
                         self.state0 = state
                     }
                 }, bookisbn: self.bookisbn, state: "0")
-                
+                Api().phpTeacherJieyueLishi2(completion: { (state) in
+                    if state.count > 0 {
+                        self.state00 = state
+                    }
+                }, bookisbn: self.bookisbn, state: "0")
+
                 Api().phpTeacherJieyueLishi(completion: { (state) in
                     if state.count > 0 {
                         self.state1 = state
                     }
                 }, bookisbn: self.bookisbn, state: "1")
                 
+                Api().phpTeacherJieyueLishi2(completion: { (state) in
+                    if state.count > 0 {
+                        self.state11 = state
+                    }
+                }, bookisbn: self.bookisbn, state: "1")
                 Api().phpTeacherJieyueLishi(completion: { (state) in
                     if state.count > 0 {
                         self.state2 = state
                     }
                 }, bookisbn: self.bookisbn, state: "2")
+                
+                Api().phpTeacherJieyueLishi2(completion: { (state) in
+                    if state.count > 0 {
+                        self.state22 = state
+                    }
+                }, bookisbn: self.bookisbn, state: "2")
         }
     }
 }
+
+

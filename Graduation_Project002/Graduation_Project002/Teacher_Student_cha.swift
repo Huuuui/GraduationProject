@@ -111,7 +111,7 @@ struct Teacher_Student_cha: View {
                         }
                         
                         HStack {
-                            Text("正在借阅的图书数量：")
+                            Text("借阅中（未超期）：")
                             Text(self.jieyuenum.count == 1 ? self.jieyuenum[0].num : "")
                         }
                         HStack {
@@ -175,7 +175,7 @@ struct Teacher_Student_cha: View {
                                         Text("ISBN:\(list.bookisbn)")
                                             .font(.subheadline)
                                             .foregroundColor(Color.gray)
-                                        Text("你已超期，请立刻归还书籍")
+                                        Text("超期罚款: \(list.fine) 元")
                                             .font(.subheadline)
                                             .foregroundColor(Color.red)
                                     }
@@ -206,7 +206,7 @@ struct Teacher_Student_cha: View {
                                         Text("ISBN:\(list.bookisbn)")
                                             .font(.subheadline)
                                             .foregroundColor(Color.gray)
-                                        Text("\(list.get_date)借阅 | \(list.back_date)归还")
+                                        Text("\(list.get_date)借阅 | \(list.real_back_date)归还")
                                             .font(.subheadline)
                                             .foregroundColor(Color.gray)
                                     }

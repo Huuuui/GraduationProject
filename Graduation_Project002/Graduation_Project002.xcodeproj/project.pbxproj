@@ -31,6 +31,7 @@
 		7C3C57F0243DA68F00232A33 /* Teacher_Student_shan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C57EF243DA68F00232A33 /* Teacher_Student_shan.swift */; };
 		7C3C57F2243DA72500232A33 /* Teacher_Student_cha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C57F1243DA72500232A33 /* Teacher_Student_cha.swift */; };
 		7C52D530243F491D008464D7 /* AlertTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C52D52F243F491D008464D7 /* AlertTest.swift */; };
+		7C592A832450B35000B8CEEC /* Teacher_Student_gai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C592A822450B35000B8CEEC /* Teacher_Student_gai.swift */; };
 		7C5D712E243AC29C009540F4 /* BookURLimg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5D712D243AC29C009540F4 /* BookURLimg.swift */; };
 		7C5D7132243CDEB0009540F4 /* Teacher_Book_zeng.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5D7131243CDEAF009540F4 /* Teacher_Book_zeng.swift */; };
 		7C8530D22437A09B00D41771 /* Myjieyue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8530D12437A09B00D41771 /* Myjieyue.swift */; };
@@ -100,6 +101,7 @@
 		7C3C57EF243DA68F00232A33 /* Teacher_Student_shan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Student_shan.swift; sourceTree = "<group>"; };
 		7C3C57F1243DA72500232A33 /* Teacher_Student_cha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Student_cha.swift; sourceTree = "<group>"; };
 		7C52D52F243F491D008464D7 /* AlertTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTest.swift; sourceTree = "<group>"; };
+		7C592A822450B35000B8CEEC /* Teacher_Student_gai.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher_Student_gai.swift; sourceTree = "<group>"; };
 		7C5D712A243A57A3009540F4 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5D712D243AC29C009540F4 /* BookURLimg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookURLimg.swift; sourceTree = "<group>"; };
 		7C5D7130243BAC67009540F4 /* book.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = book.db; sourceTree = "<group>"; };
@@ -186,13 +188,14 @@
 				7CA55A0F24163C44006F10CB /* Book.swift */,
 				7C5D712D243AC29C009540F4 /* BookURLimg.swift */,
 				7C0BE53F2436031600DA4E5F /* TeacherManagement.swift */,
+				7C52D52F243F491D008464D7 /* AlertTest.swift */,
 				7C5D7131243CDEAF009540F4 /* Teacher_Book_zeng.swift */,
 				7C3C57E7243D762A00232A33 /* Teacher_Book_shan.swift */,
-				7C52D52F243F491D008464D7 /* AlertTest.swift */,
 				7C3C57E9243D764B00232A33 /* Teacher_Book_gai.swift */,
 				7C3C57EB243DA04000232A33 /* Teacher_Book_cha.swift */,
 				7C3C57ED243DA3A900232A33 /* Teacher_Student_zeng.swift */,
 				7C3C57EF243DA68F00232A33 /* Teacher_Student_shan.swift */,
+				7C592A822450B35000B8CEEC /* Teacher_Student_gai.swift */,
 				7C3C57F1243DA72500232A33 /* Teacher_Student_cha.swift */,
 				7C2B233D2444568900F29D63 /* Teacher_Jieyue_lishi.swift */,
 				7C9ADAF0241D48FB00C22BBA /* DataStore.swift */,
@@ -394,6 +397,7 @@
 				7C2514A82433A0DB00503C37 /* SQLData.swift in Sources */,
 				7C3C57EC243DA04000232A33 /* Teacher_Book_cha.swift in Sources */,
 				7C8530DC24382E5700D41771 /* Allbooklist.swift in Sources */,
+				7C592A832450B35000B8CEEC /* Teacher_Student_gai.swift in Sources */,
 				7C5D712E243AC29C009540F4 /* BookURLimg.swift in Sources */,
 				7CA55A2624164B1B006F10CB /* Modifiers.swift in Sources */,
 				7C2514AA2433A10400503C37 /* SQLbookData.swift in Sources */,

@@ -53,7 +53,10 @@ struct jieyuelist:Codable, Identifiable {
     var bookauthor: String
     var get_date: String
     var back_date: String
+    
+    var real_back_date: String
     var state: String
+    var fine: String
 }
 struct isjieyue:Codable, Identifiable {
     let id = UUID()
@@ -67,14 +70,27 @@ struct nownum:Codable, Identifiable {
     let id = UUID()
     var booknum: String
 }
-struct username: Codable,Identifiable {
+struct tbchalishi: Codable,Identifiable {
+    //返回这本书都被谁什么时候借阅，什么时候归还
     let id = UUID()
     var userxingming:String
+    var get_date:String
+    var real_back_date:String
 }
 struct managementjieyue:Codable, Identifiable {
+    //用来返回结果这本书的人的学号、姓名
     let id = UUID()
     var username: String
     var userxingming: String
+}
+struct managementjieyue2:Codable, Identifiable {
+    //用来返回借过这本书得人的归还时间、借阅时间
+    let id = UUID()
+    var user: String
+    var get_date: String
+    var back_date: String
+    var real_back_date: String
+    var fine: String
 }
 struct managementjieyueuser:Codable, Identifiable {
     let id = UUID()
@@ -113,14 +129,29 @@ class Api {
         }
         .resume()
     }
+    //用来获取结果这本书的人的时间、学号
+    func phpTeacherJieyueLishi2(completion: @escaping ([managementjieyue2]) -> () ,bookisbn:String,state:String) {//completion: @escaping ([loginreturn]) -> () ,
+        let url0 = "http://m300239h20.zicp.vip/phpTeacherJieyueLishi2.php?bookisbn=\(bookisbn)&state=\(state)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
+        guard let url = URL(string: url0 ?? "") else{
+            print("还是失败了 日")
+            return }
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let stategai = try! JSONDecoder().decode([managementjieyue2].self, from: data!)
+            DispatchQueue.main.async {
+                completion(stategai)
+            }
+            print(url)
+        }
+        .resume()
+    }
     //获取当前书都被谁借过
-    func phpTeacherBookchalishi(bookisbn:String,completion: @escaping ([username]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
+    func phpTeacherBookchalishi(bookisbn:String,completion: @escaping ([tbchalishi]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
         let url0 = "http://m300239h20.zicp.vip/phpTeacherBookchalishi.php?isbn=\(bookisbn)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
         guard let url = URL(string: url0 ?? "") else{
             print("还是失败了 日")
             return }
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let stategai = try! JSONDecoder().decode([username].self, from: data!)
+            let stategai = try! JSONDecoder().decode([tbchalishi].self, from: data!)
             DispatchQueue.main.async {
                 completion(stategai)
             }
@@ -179,6 +210,20 @@ class Api {
             return }
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let stategai = try! JSONDecoder().decode([user].self, from: data!)
+            DispatchQueue.main.async {
+                completion(stategai)
+            }
+            print(stategai.count)
+        }
+        .resume()
+    }
+    func phpTeacherStudentgai(userid:String,userpass:String,userxingming:String,usertouxiang:String,completion: @escaping ([tongyongstate]) -> () ) {//completion: @escaping ([loginreturn]) -> () ,
+        let url0 = "http://m300239h20.zicp.vip/phpTeacherStudentgai.php?user=\(userid)&userpass=\(userpass)&xingming=\(userxingming)&userimg=\(usertouxiang)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
+        guard let url = URL(string: url0 ?? "") else{
+            print("还是失败了 日")
+            return }
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let stategai = try! JSONDecoder().decode([tongyongstate].self, from: data!)
             DispatchQueue.main.async {
                 completion(stategai)
             }
@@ -307,12 +352,17 @@ class Api {
     }
     
     
-    func student_getbook(username: String,bookisbn: String,bookname:String,bookimg:String,bookauthor:String) {//completion: @escaping ([loginreturn]) -> () ,
+    func student_getbook(completion: @escaping ([isjieyue]) -> () ,username: String,bookisbn: String,bookname:String,bookimg:String,bookauthor:String) {//
         let url0 = "http://m300239h20.zicp.vip/phpStudentGetbook.php?Suser=\(username)&Sbookisbn=\(bookisbn)&Sbookname=\(bookname)&Sbookimg=\(bookimg)&Sbookauthor=\(bookauthor)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) //中文转码
         guard let url = URL(string: url0 ?? "") else{
             print("还是失败了 日")
             return }
         URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let blist = try! JSONDecoder().decode([isjieyue].self, from: data!)
+            DispatchQueue.main.async {
+                
+                completion(blist)
+            }
             print(url)
         }
         .resume()

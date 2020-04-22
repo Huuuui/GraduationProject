@@ -18,7 +18,7 @@ struct Teacher_Book_cha: View {
     @State var bookscore:String
     @State var booknum:String
     @State var book:[booklist] = []
-    @State var userxingming:[username] = []
+    @State var userxingming:[tbchalishi] = []
     @State var alertshow: Bool = false
     @State var nownum:String = ""
     var body: some View {
@@ -107,7 +107,7 @@ struct Teacher_Book_cha: View {
                         Section(header: Text("借阅历史")) {
                             if self.userxingming.count > 0 {
                                 ForEach(self.userxingming){ index in
-                                    Text(index.userxingming)
+                                    Text("\(index.userxingming) \(index.get_date)借阅 | \(index.real_back_date)归还")
                                 }
                             }
                         }

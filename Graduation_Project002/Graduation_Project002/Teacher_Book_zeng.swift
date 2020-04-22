@@ -26,43 +26,43 @@ struct Teacher_Book_zeng: View {
             List {
                 HStack {
                     Text("书名：")
-                    SATextField(tag: 0, text:bookname,placeholder: "图书名字", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:bookname,placeholder: "图书名字*", changeHandler: { (newstr) in
                         self.bookname = newstr
                     })
                 }
                 HStack {
                     Text("作者：")
-                    SATextField(tag: 0, text:bookauthor,placeholder: "作者名字", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:bookauthor,placeholder: "作者名字*", changeHandler: { (newstr) in
                         self.bookauthor = newstr
                     })
                 }
                 HStack {
                     Text("ISBN:  ")
-                    SATextField(tag: 0, text:bookisbn,placeholder: "ISBN号", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:bookisbn,placeholder: "ISBN号*", changeHandler: { (newstr) in
                         self.bookisbn = newstr
                     })
                 }
                 HStack {
                     Text("简介：")
-                    SATextField(tag: 0, text:booktext,placeholder: "简介", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:booktext,placeholder: "简介*", changeHandler: { (newstr) in
                         self.booktext = newstr
                     })
                 }
                 HStack {
                     Text("封面：")
-                    SATextField(tag: 0, text:bookimg,placeholder: "图片URL链接", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:bookimg,placeholder: "图片URL链接*", changeHandler: { (newstr) in
                         self.bookimg = newstr
                     })
                 }
                 HStack {
                     Text("评分：")
-                    SATextField(tag: 0, text:bookscore,placeholder: "书籍评分", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:bookscore,placeholder: "书籍评分*", changeHandler: { (newstr) in
                         self.bookscore = newstr
                     })
                 }
                 HStack {
                     Text("库存：")
-                    SATextField(tag: 0, text:booknum,placeholder: "该书馆藏数", changeHandler: { (newstr) in
+                    SATextField(tag: 0, text:booknum,placeholder: "该书馆藏数*", changeHandler: { (newstr) in
                         self.booknum = newstr
                     })
                 }

@@ -71,34 +71,38 @@ struct TeacherManagement: View {
                     Section(header:Text("图文管理")) {
                         NavigationLink(destination: Teacher_Book_zeng()) {
                             
-                            Text("      增加书籍") //这个地方如果是按钮就会造成没有办法跳转页面，NavigationLink其实也是一个View可以用各种属性进行修饰
+                            Text("      添加新书") //这个地方如果是按钮就会造成没有办法跳转页面，NavigationLink其实也是一个View可以用各种属性进行修饰
                         }
                         NavigationLink(destination: Teacher_Book_shan(isbn:"")) {
-                            Text("      删除书籍")
+                            Text("      移除旧书")
                         }
                         
                         NavigationLink(destination: Teacher_Book_gai(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "", newbookclass: "")) {
-                            Text("      修改书籍")
+                            Text("      更新书籍")
                         }
                         
                         NavigationLink(destination: Teacher_Book_cha(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")) {
-                            Text("      查询书籍")
+                            Text("      书籍检索")
                         }
                     }
                     Section(header:Text("学生管理")){
                         NavigationLink(destination: Teacher_Student_zeng(userid:"",userpass: "",username: "", userimg: "")) {
-                            Text("      增加学生")
+                            Text("      学生信息录入")
                         }
                         NavigationLink(destination: Teacher_Student_shan(userid: "")) {
-                            Text("      删除学生")
+                            Text("      学生信息移除")
+                        }
+                        NavigationLink(destination: Teacher_Student_gai(userid: "", userpass: "",username: "",userimg: "")) {
+                            Text("      学生信息更新")
                         }
                         NavigationLink(destination: Teacher_Student_cha(userid:"")) {
-                            Text("      查询学生")
+                            Text("      学生信息检索")
                         }
+                        
                     }
                     Section(header:Text("借阅管理")){
                         NavigationLink(destination: Teacher_Jieyue_lishi(textisbn: "",textname: "",textauthor: "")) {
-                            Text("      学生借阅管理")
+                            Text("      书籍借阅管理")
                         }
                     }
                 }

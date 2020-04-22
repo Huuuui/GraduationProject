@@ -21,12 +21,13 @@ struct Book: View {
     @State var booktxt: String
     @State var bookfen: String
     @State var bookisbn: String
-    @State var nownum: String = "-1"
+    @State var nownum: String = ""
     @State var isjieyue:Bool = false
-    @State var state:String = ""
+    @State var state:String = ""    //接收返回的状态信息
     @State var alertshow: Bool = false  //库存不足弹窗
     @State var alertshow1: Bool = false    //是否借阅、是否归还弹窗
     @State var sysalertshow: Bool = false //系统自带的alert
+    //@State var state1:String = "" //余额不足、借阅超限
     var body: some View {
         ZStack {
             //VStack {
@@ -46,8 +47,10 @@ struct Book: View {
                             .padding(.all,5)
                             .background(Color.white)
                         
-                        VStack(alignment: .leading ,spacing: 29) {
+                        VStack(alignment: .leading ,spacing: 10) {
                             Text("作品名称：" + self.booktitle)
+                            
+                            Text("ISBN:" + self.bookisbn)
                             
                             Text("作者：" + self.bookauthor)
                             
@@ -134,18 +137,35 @@ struct Book: View {
 
                         self.alertshow1 = false
                         if self.isjieyue == false && self.nownum != "0" {//未被借阅并且当前库存量大于0
-                            Api().student_getbook(username: self.userid, bookisbn: self.bookisbn, bookname: self.booktitle, bookimg: self.bookimg, bookauthor: self.bookauthor)
-                            Api().phpStudentGetbooknum(isbn: self.bookisbn, tonum: "-1") { (state) in
-                                self.state = state[0].state
-                                if state.count == 1 {
+                            Api().student_getbook(completion: { (returnstate) in
+                                if returnstate[0].state == "0" || returnstate[0].state == "1" {//大于0但是借阅上限或者罚金上限
+                                    if returnstate[0].state == "0" {
+                                        self.state = "借书已达上限，无法借书！"
+                                    }
+                                    else if returnstate[0].state == "1" {
+                                        self.state = "请先归还超期书籍并缴纳罚金后，方可正常借书"
+                                    }
+                                    //self.state = returnstate[0].state
                                     self.sysalertshow = true
                                 }
-                            }
-                            Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
-                                self.nownum = num[0].booknum
-                            }
-                            self.sysalertshow = true
-                            self.isjieyue = true
+                                else {//正常状态可以借书
+
+                                    self.nownum = ""
+                                    Api().phpStudentGetbooknum(isbn: self.bookisbn, tonum: "-1") { (state) in
+                                        self.state = state[0].state
+                                        if state.count == 1 {
+                                            self.sysalertshow = true
+                                        }
+                                    }
+                                    Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
+                                        self.nownum = num[0].booknum
+                                    }
+                                    self.sysalertshow = true
+                                    self.isjieyue = true
+                                }
+                            }, username: self.userid, bookisbn: self.bookisbn, bookname: self.booktitle, bookimg: self.bookimg, bookauthor: self.bookauthor)
+                            
+                            
                         }
                         else if self.isjieyue == false && self.nownum == "0"{
                             //处于未借阅但是库存量为0
@@ -156,6 +176,7 @@ struct Book: View {
                             
                             self.isjieyue = false
                             self.alertshow1 = false
+                            self.nownum = ""
                             Api().student_backbook(username: self.userid, bookisbn: self.bookisbn)
                             Api().phpStudentGetbooknum(isbn: self.bookisbn, tonum: "+1") { (state) in
                                 
@@ -166,6 +187,7 @@ struct Book: View {
                                 }
                             }
                             Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
+                                
                                 self.nownum = num[0].booknum
                             }
                         }
