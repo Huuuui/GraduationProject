@@ -119,7 +119,7 @@ struct Teacher_Book_zeng: View {
             .blur(radius: self.warningshow ? 5 : 0)
             .animation(.default)
             
-            //自制弹窗
+            //弹窗
             VStack(spacing:0) {
                 Spacer()
                 VStack {

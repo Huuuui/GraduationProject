@@ -91,7 +91,7 @@ struct Teacher_Book_gai: View {
                             }
                             HStack {
                                 Text("总库存 | 被借阅： ")
-                                Text("10 | 7")
+                                Text(" | ")//更正过来
                             }
                             HStack {
                                 Text("简介：")

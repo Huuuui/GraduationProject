@@ -11,7 +11,9 @@ import SDWebImageSwiftUI
 import Foundation
 import CoreLocation
 
+
 struct Home: View {
+    
     @State var showMenuBtn = true
     @State var showProfile = false
     @State var qubook = false
@@ -166,13 +168,15 @@ let bclass = [
 
 
 
+//let bookdata_gdwx: [SQLbook_gdwx] = SQLbook_gdwx.rows( order: "RANDOM() ", limit: 8)
+
 struct Booklist_gdwx: View {
     var classname: String
     @Binding var qubook: Bool
     @State var userid:String = ""
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
-    
+    @State var bookdata_gdwx: [SQLbook_gdwx] = SQLbook_gdwx.rows( order: "RANDOM() ", limit: 8)
     @State var bookindex = 0
     var body: some View {
         return
@@ -205,18 +209,18 @@ struct Booklist_gdwx: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_gdwx.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_gdwx.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_gdwx[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_gdwx[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
                                         
-                                        Text(bookdata_gdwx[book].bookname)
+                                        Text(self.bookdata_gdwx[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -230,12 +234,12 @@ struct Booklist_gdwx: View {
                                     }
                                         
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_gdwx[self.bookindex].bookimg, booktitle:bookdata_gdwx[self.bookindex].bookname,
-                                        bookauthor: bookdata_gdwx[self.bookindex].bookauthor,
-                                        bookclass: bookdata_gdwx[self.bookindex].bookclass,
-                                        booktxt: bookdata_gdwx[self.bookindex].booktext,
-                                        bookfen: bookdata_gdwx[self.bookindex].bookscore,
-                                        bookisbn:bookdata_gdwx[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_gdwx[self.bookindex].bookimg, booktitle:self.bookdata_gdwx[self.bookindex].bookname,
+                                             bookauthor: self.bookdata_gdwx[self.bookindex].bookauthor,
+                                        bookclass: self.bookdata_gdwx[self.bookindex].bookclass,
+                                        booktxt: self.bookdata_gdwx[self.bookindex].booktext,
+                                        bookfen: self.bookdata_gdwx[self.bookindex].bookscore,
+                                        bookisbn:self.bookdata_gdwx[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                 }
@@ -264,7 +268,7 @@ struct Booklist_js: View {
     
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
-    
+    @State var bookdata_js: [SQLbook_js] = SQLbook_js.rows( order: "RANDOM() ", limit: 8)
     var body: some View {
         return
             VStack {
@@ -295,18 +299,18 @@ struct Booklist_js: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_js.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_js.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_js[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_js[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
                                         
-                                        Text(bookdata_js[book].bookname)
+                                        Text(self.bookdata_js[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -320,12 +324,12 @@ struct Booklist_js: View {
                                     }
                                         
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_js[self.bookindex].bookimg, booktitle:bookdata_js[self.bookindex].bookname,
-                                        bookauthor: bookdata_js[self.bookindex].bookauthor,
-                                        bookclass: bookdata_js[self.bookindex].bookclass,
-                                        booktxt: bookdata_js[self.bookindex].booktext,
-                                        bookfen: bookdata_js[self.bookindex].bookscore,
-                                        bookisbn:bookdata_js[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_js[self.bookindex].bookimg, booktitle:self.bookdata_js[self.bookindex].bookname,
+                                        bookauthor: self.bookdata_js[self.bookindex].bookauthor,
+                                        bookclass: self.bookdata_js[self.bookindex].bookclass,
+                                        booktxt: self.bookdata_js[self.bookindex].booktext,
+                                        bookfen: self.bookdata_js[self.bookindex].bookscore,
+                                        bookisbn:self.bookdata_js[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                 }
@@ -353,6 +357,8 @@ struct Booklist_rwkp: View {
     @State var bookindex = 0
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
+    
+    @State var bookdata_rwkp: [SQLbook_rwkp] = SQLbook_rwkp.rows( order: "RANDOM() ", limit: 8)
     var body: some View {
         return
             VStack {
@@ -384,18 +390,18 @@ struct Booklist_rwkp: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_rwkp.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_rwkp.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_rwkp[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_rwkp[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
                                         
-                                        Text(bookdata_rwkp[book].bookname)
+                                        Text(self.bookdata_rwkp[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -409,12 +415,12 @@ struct Booklist_rwkp: View {
                                     }
                                         
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_rwkp[self.bookindex].bookimg, booktitle:bookdata_rwkp[self.bookindex].bookname,
-                                             bookauthor: bookdata_rwkp[self.bookindex].bookauthor,
-                                             bookclass: bookdata_rwkp[self.bookindex].bookclass,
-                                             booktxt: bookdata_rwkp[self.bookindex].booktext,
-                                             bookfen: bookdata_rwkp[self.bookindex].bookscore,
-                                             bookisbn:bookdata_rwkp[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_rwkp[self.bookindex].bookimg, booktitle:self.bookdata_rwkp[self.bookindex].bookname,
+                                             bookauthor: self.bookdata_rwkp[self.bookindex].bookauthor,
+                                             bookclass: self.bookdata_rwkp[self.bookindex].bookclass,
+                                             booktxt: self.bookdata_rwkp[self.bookindex].booktext,
+                                             bookfen: self.bookdata_rwkp[self.bookindex].bookscore,
+                                             bookisbn:self.bookdata_rwkp[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                 }
@@ -442,6 +448,7 @@ struct Booklist_shjj: View {
     @State var bookindex = 0
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
+    @State var bookdata_shjj: [SQLbook_shjj] = SQLbook_shjj.rows( order: "RANDOM() ", limit: 8)
     var body: some View {
         return
             VStack {
@@ -473,18 +480,18 @@ struct Booklist_shjj: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_shjj.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_shjj.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_shjj[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_shjj[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
                                         
-                                        Text(bookdata_shjj[book].bookname)
+                                        Text(self.bookdata_shjj[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -498,12 +505,12 @@ struct Booklist_shjj: View {
                                     }
                                         
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_shjj[self.bookindex].bookimg, booktitle:bookdata_shjj[self.bookindex].bookname,
-                                        bookauthor: bookdata_shjj[self.bookindex].bookauthor,
-                                        bookclass: bookdata_shjj[self.bookindex].bookclass,
-                                        booktxt: bookdata_shjj[self.bookindex].booktext,
-                                        bookfen: bookdata_shjj[self.bookindex].bookscore,
-                                        bookisbn:bookdata_shjj[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_shjj[self.bookindex].bookimg, booktitle:self.bookdata_shjj[self.bookindex].bookname,
+                                        bookauthor: self.bookdata_shjj[self.bookindex].bookauthor,
+                                        bookclass: self.bookdata_shjj[self.bookindex].bookclass,
+                                        booktxt: self.bookdata_shjj[self.bookindex].booktext,
+                                        bookfen: self.bookdata_shjj[self.bookindex].bookscore,
+                                        bookisbn:self.bookdata_shjj[self.bookindex].bookisbn)
                                     }
                                         
                                     .padding(.leading,14)
@@ -534,6 +541,7 @@ struct Booklist_wgwx: View {
     @State var bookindex = 0
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
+    @State var bookdata_wgwx: [SQLbook_wgwx] = SQLbook_wgwx.rows( order: "RANDOM() ", limit: 8)
     var body: some View {
         return
             VStack {
@@ -565,18 +573,18 @@ struct Booklist_wgwx: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_wgwx.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_wgwx.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_wgwx[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_wgwx[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
                                         
-                                        Text(bookdata_wgwx[book].bookname)
+                                        Text(self.bookdata_wgwx[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -590,12 +598,12 @@ struct Booklist_wgwx: View {
                                     }
                                         
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_wgwx[self.bookindex].bookimg, booktitle:bookdata_wgwx[self.bookindex].bookname,
-                                        bookauthor: bookdata_wgwx[self.bookindex].bookauthor,
-                                        bookclass: bookdata_wgwx[self.bookindex].bookclass,
-                                        booktxt: bookdata_wgwx[self.bookindex].booktext,
-                                        bookfen: bookdata_wgwx[self.bookindex].bookscore,
-                                        bookisbn:bookdata_wgwx[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_wgwx[self.bookindex].bookimg, booktitle:self.bookdata_wgwx[self.bookindex].bookname,
+                                        bookauthor: self.bookdata_wgwx[self.bookindex].bookauthor,
+                                        bookclass: self.bookdata_wgwx[self.bookindex].bookclass,
+                                        booktxt: self.bookdata_wgwx[self.bookindex].booktext,
+                                        bookfen: self.bookdata_wgwx[self.bookindex].bookscore,
+                                        bookisbn:self.bookdata_wgwx[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                 }
@@ -624,6 +632,7 @@ struct Booklist_wx: View {
     @State var bookindex = 0
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
+    @State var bookdata_wx: [SQLbook_wx] = SQLbook_wx.rows( order: "RANDOM() ", limit: 8)
     var body: some View {
         return
             VStack {
@@ -655,17 +664,17 @@ struct Booklist_wx: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_wx.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_wx.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_wx[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_wx[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
-                                        Text(bookdata_wx[book].bookname)
+                                        Text(self.bookdata_wx[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -677,12 +686,12 @@ struct Booklist_wx: View {
                                         self.qubook.toggle()
                                     }
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_wx[self.bookindex].bookimg, booktitle:bookdata_wx[self.bookindex].bookname,
-                                        bookauthor: bookdata_wx[self.bookindex].bookauthor,
-                                        bookclass: bookdata_wx[self.bookindex].bookclass,
-                                        booktxt: bookdata_wx[self.bookindex].booktext,
-                                        bookfen: bookdata_wx[self.bookindex].bookscore,
-                                        bookisbn:bookdata_wx[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_wx[self.bookindex].bookimg, booktitle:self.bookdata_wx[self.bookindex].bookname,
+                                        bookauthor: self.bookdata_wx[self.bookindex].bookauthor,
+                                        bookclass: self.bookdata_wx[self.bookindex].bookclass,
+                                        booktxt: self.bookdata_wx[self.bookindex].booktext,
+                                        bookfen: self.bookdata_wx[self.bookindex].bookscore,
+                                        bookisbn:self.bookdata_wx[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                 }
@@ -711,6 +720,7 @@ struct Booklist_zgwx: View {
     @Binding var allbookshow: Bool
     @Binding var allbookshowwhich: String
     @State var bookindex = 0
+    @State var bookdata_zgwx: [SQLbook_zgwx] = SQLbook_zgwx.rows( order: "RANDOM() ", limit: 8)
     var body: some View {
         return
             VStack {
@@ -743,17 +753,17 @@ struct Booklist_zgwx: View {
                 
                 ScrollView(.horizontal,showsIndicators: false) {
                     HStack{
-                        ForEach(0..<bookdata_zgwx.count,id:\.self) { book in
+                        ForEach(0..<self.bookdata_zgwx.count,id:\.self) { book in
                             GeometryReader {    geometry in
                                 HStack {
                                     VStack {
-                                        WebImage(url:URL(string: bookdata_zgwx[book].bookimg))
+                                        WebImage(url:URL(string: self.bookdata_zgwx[book].bookimg))
                                             .resizable()
                                             //.aspectRatio(contentMode: .fit) .fit长宽等比例缩放 fill填满
                                             .frame(width: 90, height: 130, alignment: .top)
                                             .cornerRadius(10)
                                         //.shadow(color: Color.red.opacity(0.3), radius: 20, x: 0, y: 20)
-                                        Text(bookdata_zgwx[book].bookname)
+                                        Text(self.bookdata_zgwx[book].bookname)
                                             .foregroundColor(Color.black)
                                             .font(.system(size:12))
                                             //.fontWeight(.bold)
@@ -766,12 +776,12 @@ struct Booklist_zgwx: View {
                                     }
                                         
                                     .sheet(isPresented: self.$qubook) {
-                                        Book(userid:self.$userid,bookimg: bookdata_zgwx[self.bookindex].bookimg, booktitle:bookdata_zgwx[self.bookindex].bookname,
-                                        bookauthor: bookdata_zgwx[self.bookindex].bookauthor,
-                                        bookclass: bookdata_zgwx[self.bookindex].bookclass,
-                                        booktxt: bookdata_zgwx[self.bookindex].booktext,
-                                        bookfen: bookdata_zgwx[self.bookindex].bookscore,
-                                        bookisbn:bookdata_zgwx[self.bookindex].bookisbn)
+                                        Book(userid:self.$userid,bookimg: self.bookdata_zgwx[self.bookindex].bookimg, booktitle:self.bookdata_zgwx[self.bookindex].bookname,
+                                        bookauthor: self.bookdata_zgwx[self.bookindex].bookauthor,
+                                        bookclass: self.bookdata_zgwx[self.bookindex].bookclass,
+                                        booktxt: self.bookdata_zgwx[self.bookindex].booktext,
+                                        bookfen: self.bookdata_zgwx[self.bookindex].bookscore,
+                                        bookisbn:self.bookdata_zgwx[self.bookindex].bookisbn)
                                     }
                                     .padding(.leading,14)
                                     
