@@ -21,6 +21,9 @@ struct MyJieyue: View {
     @State var state0:[jieyuelist] = []
     @State var state1:[jieyuelist] = []
     @State var state2:[jieyuelist] = []
+    
+    @State var jienum:[bookjienum] = []
+    @State var jiefine:[bookfine] = []
     var body: some View {
             //Color.white
         ZStack{
@@ -29,9 +32,12 @@ struct MyJieyue: View {
                             VStack{
                                 Spacer()
                                     .frame(height:40)
-                                Text("君不见高堂明镜悲白发朝如青丝暮成雪")
-                                .font(.system(size:15))
-                                .foregroundColor(Color.gray)
+                                if jienum.count > 0 && jiefine.count > 0 {
+                                    Text("借阅上限:\(jienum[0].jienum)|20   超期罚金:\(jiefine[0].fine)|50")
+                                    .font(.system(size:15))
+                                    .foregroundColor(Color.gray)
+                                }
+                                
                             }
                             Spacer()
                             Button(action: {
@@ -160,7 +166,30 @@ struct MyJieyue: View {
             .lineSpacing(0)
                     }
                 .alert(isPresented: self.$alertshow){
-                    Alert(title: Text("提示"), message: Text(self.state))
+                    Alert(title: Text("提示"), message: Text(self.state),
+                          dismissButton: .default(Text("确定"), action: {
+                        Api().get_jieyuelist(completion: { (list) in
+                            self.state0 = list
+                        }, userid: self.userid, state: "0")
+                        
+                        Api().get_jieyuelist(completion: { (list) in
+                            self.state1 = list
+                        }, userid: self.userid, state: "1")
+
+                        Api().get_jieyuelist(completion: { (list) in
+                            self.state2 = list
+                        }, userid: self.userid, state: "2")
+                        Api().phpBookMaxinfo(user: self.userid) { (num) in
+                            if num.count > 0 {
+                                self.jienum = num
+                            }
+                        }
+                        Api().phpBookMaxFine(user: self.userid) { (fine) in
+                            if fine.count > 0 {
+                                self.jiefine = fine
+                            }
+                        }
+                    }))
                 }
                     .background(Color.white)
             .edgesIgnoringSafeArea(.all)
@@ -176,6 +205,16 @@ struct MyJieyue: View {
                 Api().get_jieyuelist(completion: { (list) in
                     self.state2 = list
                 }, userid: self.userid, state: "2")
+                Api().phpBookMaxinfo(user: self.userid) { (num) in
+                    if num.count > 0 {
+                        self.jienum = num
+                    }
+                }
+                Api().phpBookMaxFine(user: self.userid) { (fine) in
+                    if fine.count > 0 {
+                        self.jiefine = fine
+                    }
+                }
 
             }
             .blur(radius: self.warningshow ? 5 : 0)
@@ -206,17 +245,7 @@ struct MyJieyue: View {
                             self.state = state[0].state
                         }
                         self.warningshow = false
-                        Api().get_jieyuelist(completion: { (list) in
-                            self.state0 = list
-                        }, userid: self.userid, state: "0")
                         
-                        Api().get_jieyuelist(completion: { (list) in
-                            self.state1 = list
-                        }, userid: self.userid, state: "1")
-
-                        Api().get_jieyuelist(completion: { (list) in
-                            self.state2 = list
-                        }, userid: self.userid, state: "2")
                         self.alertshow = true
                     }) {
                         Text("确定")

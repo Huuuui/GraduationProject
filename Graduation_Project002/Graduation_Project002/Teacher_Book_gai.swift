@@ -17,6 +17,8 @@ struct Teacher_Book_gai: View {
     @State var bookimg:String
     @State var bookscore:String
     @State var booknum:String
+    @State var bookallnum:String = ""
+    @State var bookjieyuenum:String = ""
     @State var book:[booklist] = []
     @State var state:[isjieyue] = []
     @State var alertshow: Bool = false
@@ -54,6 +56,16 @@ struct Teacher_Book_gai: View {
                                         self.warningtextbool = false
                                     }
                                 })
+                                Api().phpBookAllnum(bookisbn: self.isbn) { (num) in
+                                    if num.count > 0 {
+                                        self.bookallnum = num[0].booknum
+                                    }
+                                }
+                                Api().phpBookJieyuenum(bookisbn: self.isbn) { (num) in
+                                    if num.count > 0 {
+                                        self.bookjieyuenum = num[0].booknum
+                                    }
+                                }
                             }
                             
                         }) {
@@ -91,7 +103,7 @@ struct Teacher_Book_gai: View {
                             }
                             HStack {
                                 Text("总库存 | 被借阅： ")
-                                Text(" | ")//更正过来
+                                Text("\(self.bookallnum)|\(self.bookjieyuenum)")
                             }
                             HStack {
                                 Text("简介：")

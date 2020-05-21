@@ -21,10 +21,9 @@ struct TeacherManagement: View {
     var body: some View {
         NavigationView {
             VStack{
-                
+                //后台封面
                 HStack{// 后台封面
                     WebImage(url: URL(string: self.touxiang))
-                        //WebImage(url: URL(string: "asdw捱三顶五群多"))
                         .resizable()
                         .frame(width:120, height:170)
                         .cornerRadius(5)
@@ -71,38 +70,94 @@ struct TeacherManagement: View {
                     Section(header:Text("图文管理")) {
                         NavigationLink(destination: Teacher_Book_zeng()) {
                             
-                            Text("      添加新书") //这个地方如果是按钮就会造成没有办法跳转页面，NavigationLink其实也是一个View可以用各种属性进行修饰
+                            HStack {
+                                Image(systemName: "square.and.pencil")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                    //.foregroundColor(Color(#colorLiteral(red: 0.9126784205, green: 0.8797697425, blue: 0.3162591457, alpha: 1)))
+                                Text("添加新书")
+                            } //这个地方如果是按钮就会造成没有办法跳转页面，NavigationLink其实也是一个View可以用各种属性进行修饰
                         }
                         NavigationLink(destination: Teacher_Book_shan(isbn:"")) {
-                            Text("      移除旧书")
+                            HStack {
+                                Image(systemName: "tray.and.arrow.up")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                    //.foregroundColor(Color(#colorLiteral(red: 0.9192239642, green: 0.05500260741, blue: 0.1909688413, alpha: 1)))
+                                Text("移除旧书")
+                            }
                         }
                         
                         NavigationLink(destination: Teacher_Book_gai(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "", newbookclass: "")) {
-                            Text("      更新书籍")
+                            HStack {
+                                Image(systemName: "pencil.and.ellipsis.rectangle")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                    //.foregroundColor(Color(#colorLiteral(red: 0.9753779769, green: 0.2029992044, blue: 0.02403530665, alpha: 1)))
+                                Text("更新书籍")
+                            }
                         }
                         
                         NavigationLink(destination: Teacher_Book_cha(isbn: "",bookname: "", bookauthor: "", booktext: "", bookimg: "", bookscore: "", booknum: "")) {
-                            Text("      书籍检索")
+                            HStack {
+                                Image(systemName: "doc.text.magnifyingglass")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                Text("书籍检索")
+                            }
                         }
                     }
                     Section(header:Text("学生管理")){
                         NavigationLink(destination: Teacher_Student_zeng(userid:"",userpass: "",username: "", userimg: "")) {
-                            Text("      学生信息录入")
-                        }
-                        NavigationLink(destination: Teacher_Student_shan(userid: "")) {
-                            Text("      学生信息移除")
+                            HStack {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                Text("学生信息录入")
+                            }
                         }
                         NavigationLink(destination: Teacher_Student_gai(userid: "", userpass: "",username: "",userimg: "")) {
-                            Text("      学生信息更新")
+                            HStack {
+                                Image(systemName: "person.crop.rectangle")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                Text("学生信息更新")
+                            }
                         }
                         NavigationLink(destination: Teacher_Student_cha(userid:"")) {
-                            Text("      学生信息检索")
+                            HStack {
+                                Image(systemName: "rectangle.stack.badge.person.crop")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                Text("学生信息检索")
+                            }
                         }
-                        
+                        NavigationLink(destination: Teacher_Student_shan(userid: "")) {
+                            HStack {
+                                Image(systemName: "person.crop.circle.badge.minus")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                Text("学生信息移除")
+                            }
+                        }
                     }
                     Section(header:Text("借阅管理")){
                         NavigationLink(destination: Teacher_Jieyue_lishi(textisbn: "",textname: "",textauthor: "")) {
-                            Text("      书籍借阅管理")
+                            HStack {
+                                Image(systemName: "rectangle.3.offgrid")
+                                    .resizable()
+                                    .frame(width: 33, height: 30)
+                                    .padding(.horizontal)
+                                Text("书籍借阅管理")
+                            }
                         }
                     }
                 }

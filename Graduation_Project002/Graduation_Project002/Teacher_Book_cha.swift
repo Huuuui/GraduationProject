@@ -34,20 +34,22 @@ struct Teacher_Book_cha: View {
                             if book[0].bookisbn == "-1"{
                                 self.alertshow.toggle()
                                 self.book = []
+                                
                             }
                             else {
                                 Api().phpStudentGetbooknownum(bookisbn: self.isbn) { (num) in
                                     self.nownum = num[0].booknum
                                 }
+
+                                Api().phpTeacherBookchalishi(bookisbn:
+                                    self.isbn,completion: { (name) in
+                                    self.userxingming = name
+                                }
+                                )
                                 self.book = book
                             }
                         })
                         
-                        Api().phpTeacherBookchalishi(bookisbn:
-                            self.isbn,completion: { (name) in
-                            self.userxingming = name
-                        }
-                        )
                     }) {
                         Text("查询")
                     }
@@ -113,15 +115,8 @@ struct Teacher_Book_cha: View {
                         }
 
                     }
-                    
-                    
                 }
-                
-            
             }
-            
-            
-        
         //.offset(y:-70)
     }
 }

@@ -218,6 +218,8 @@ struct Teacher_Student_cha: View {
                 }
                 .lineSpacing(0)
             }
+            .blur(radius: self.warningshow ? 5 : 0)
+            .animation(.default)
             .background(Color.white)
             //.edgesIgnoringSafeArea(.all)
             

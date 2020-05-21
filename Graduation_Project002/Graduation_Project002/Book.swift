@@ -57,8 +57,14 @@ struct Book: View {
                             Text("类别：" + self.bookclass)
                             
                             Text("豆瓣评分：" + self.bookfen)
-                            
-                            Text("库存：" + self.nownum)
+                            HStack{
+                                Text("库存：")
+                                Text(self.nownum)
+                                
+                            }
+                            .frame(width: 100, alignment: .leading)
+                            //.background(Color.red)
+                                //.padding(.leading)
                         }
                         Spacer()
                     }
@@ -154,12 +160,13 @@ struct Book: View {
                                     Api().phpStudentGetbooknum(isbn: self.bookisbn, tonum: "-1") { (state) in
                                         self.state = state[0].state
                                         if state.count == 1 {
+                                            Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
+                                                self.nownum = num[0].booknum
+                                            }//5.15更改 将获取当前库存放到修改库存完成后，可以避免页面刷新失误
                                             self.sysalertshow = true
                                         }
                                     }
-                                    Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
-                                        self.nownum = num[0].booknum
-                                    }
+                                    
                                     self.sysalertshow = true
                                     self.isjieyue = true
                                 }
@@ -183,13 +190,14 @@ struct Book: View {
                                 
                                 self.state = state[0].state
                                 if state.count == 1 {
+                                    Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
+                                        
+                                        self.nownum = num[0].booknum
+                                    }//5.15更改 将获取当前库存放到修改库存完成后，可以避免页面刷新失误
                                     self.sysalertshow = true
                                 }
                             }
-                            Api().phpStudentGetbooknownum(bookisbn: self.bookisbn) { (num) in
-                                
-                                self.nownum = num[0].booknum
-                            }
+                            
                         }
                     }) {
                         Text("确定")

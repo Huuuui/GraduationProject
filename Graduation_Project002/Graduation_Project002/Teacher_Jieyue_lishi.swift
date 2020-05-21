@@ -32,6 +32,7 @@ struct Teacher_Jieyue_lishi: View {
     @State var state1:[managementjieyue] = []
     @State var state2:[managementjieyue] = []
     @State var item:Int = 0
+    @State var bjycount:String = ""
     var body: some View {
         
         ZStack {
@@ -148,6 +149,7 @@ struct ExtractedView: View {
     @State var alertshow:Bool = false
     @State var userid:String = ""
     @State var state:String = ""
+    @State var bjycount:String = ""
     var body: some View {
         return
             ZStack {
@@ -205,14 +207,8 @@ struct ExtractedView: View {
                             }
                             
                         }
-                        Section(header:Text("借阅历史")){
-                            if self.state0.count > 0 && self.state00.count > 0 {
-                                ForEach(0..<self.state0.count,id: \.self) { state in
-                                    HStack{
-                                        Text("\(self.state0[state].username),\(self.state0[state].userxingming)   \(self.state00[state].get_date)借阅 | \(self.state00[state].real_back_date)归还")
-                                    }
-                                }
-                            }
+                        Section(header:Text("借阅次数")){
+                            Text("该书总计被借阅： " + self.bjycount)
                             
                         }
                     }
@@ -354,6 +350,11 @@ struct ExtractedView: View {
                         self.state22 = state
                     }
                 }, bookisbn: self.bookisbn, state: "2")
+                Api().phpJieyuelishicount(bookisbn: self.bookisbn) { (count) in
+                    if count.count > 0 {
+                        self.bjycount = count[0].bjycount
+                    }
+                }
         }
     }
 }
